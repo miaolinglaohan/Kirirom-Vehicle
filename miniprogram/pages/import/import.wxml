@@ -1,0 +1,33 @@
+<view class="container">
+  <view class="header">
+    <text class="title">📥 导入历史记录（开发专用）</text>
+  </view>
+
+  <view class="card">
+    <text class="label">选择Excel文件</text>
+    <button class="btn-choose" bindtap="chooseFile">
+      {{fileName || '从微信聊天中选择文件'}}
+    </button>
+
+    <text class="label">执行导入</text>
+    <button class="btn-import" bindtap="startImport" disabled="{{importing || !fileID}}">
+      {{importing ? '导入中，请稍候...' : '开始导入数据库'}}
+    </button>
+
+    <view class="result-box" wx:if="{{result}}">
+      <text class="result-title">导入结果</text>
+      <text>总计识别：{{result.total}} 条</text>
+      <text class="success-text">成功写入：{{result.successCount}} 条</text>
+      <text class="fail-text" wx:if="{{result.failCount > 0}}">失败：{{result.failCount}} 条</text>
+    </view>
+  </view>
+
+  <view class="tips">
+    <text class="tip-title">⚠️ 开发环境专用</text>
+    <text>1. 此页面未注册到app.json，不会随版本发布</text>
+    <text>2. 导入的记录openid为空，全部用户可在"全部"中查看</text>
+    <text>3. 重复导入会产生重复数据</text>
+  </view>
+
+  <button class="btn-back" bindtap="goBack">返回</button>
+</view>

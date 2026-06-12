@@ -1,0 +1,451 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30rpx;
+  color: #333;
+}
+
+.tab-bar {
+  display: flex;
+  gap: 16rpx;              /* 按钮之间拉开间距 */
+  background: #f5f5f5;    /* 外层背景灰色，衬托白色按钮 */
+  padding: 20rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 18rpx 6rpx;
+  font-size: 26rpx;
+  color: #666;
+  border: 2rpx solid #e0e0e0;  /* 加灰色边框 */
+  border-radius: 12rpx;         /* 圆角 */
+  background: white;            /* 白底 */
+}
+
+.tab-item.active {
+  background: #07c160;
+  color: white;
+  font-weight: bold;
+  border-color: #07c160;      /* 激活时边框变绿色，融为一体 */
+}
+.tab-content {
+  padding-bottom: 120rpx;
+}
+
+.list-card {
+  background: white;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+  font-size: 30rpx;
+}
+
+.label {
+  color: #666;
+  width: 140rpx;
+}
+
+.value {
+  color: #333;
+  flex: 1;
+}
+
+.file-name {
+  word-break: break-all;
+}
+
+.role-tag {
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  margin-left: 16rpx;
+}
+
+.role-tag.user {
+  background: #e3f2fd;
+  color: #2196f3;
+}
+
+.role-tag.approver {
+  background: #fff3e0;
+  color: #ff9800;
+}
+
+.role-tag.admin {
+  background: #e8f5e9;
+  color: #07c160;
+}
+
+.role-tag.driver {
+  background: #f0f9ff;
+  color: #0284c7;
+}
+
+.status-tag {
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  margin-left: 16rpx;
+}
+
+.status-tag.available {
+  background: #e8f5e9;
+  color: #07c160;
+}
+
+.status-tag.pending {
+  background: #fffbe8;
+  color: #ff976a;
+}
+
+.status-tag.approved {
+  background: #e8f5e9;
+  color: #07c160;
+}
+
+.empty {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 30rpx;
+}
+
+.btn-add, .btn-export {
+  position: fixed;
+  bottom: 40rpx;
+  left: 40rpx;
+  right: 40rpx;
+  background: #07c160;
+  color: white;
+  font-size: 32rpx;
+  border-radius: 12rpx;
+}
+
+/* 弹窗 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  width: 80%;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  z-index: 101;
+  max-height: 86vh;
+  overflow-y: auto;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.modal-input {
+  height: 80rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+}
+
+.modal-picker {
+  height: 80rpx;
+  line-height: 80rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.modal-textarea {
+  width: 100%;
+  min-height: 150rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 30rpx;
+}
+
+.btn-cancel {
+  flex: 1;
+  background: #f5f5f5;
+  color: #666;
+}
+
+.btn-confirm {
+  flex: 1;
+  background: #07c160;
+  color: white;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16rpx;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.btn-edit {
+  margin: 0;
+  background: #07c160;
+  color: white;
+  font-size: 24rpx;
+}
+
+.btn-delete {
+  margin: 0;
+  font-size: 24rpx;
+}
+
+/* 用户列表项 */
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  background: #fff;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-name {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.item-detail {
+  font-size: 26rpx;
+  color: #999;
+}
+
+/* 操作按钮 */
+.item-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.action-btn {
+  margin: 0;
+  padding: 8rpx 24rpx;
+  font-size: 24rpx;
+  line-height: 1.8;
+  border-radius: 6rpx;
+}
+
+.action-btn.edit {
+  background: #07c160;
+  color: white;
+}
+
+.action-btn.delete {
+  background: #e64340;
+  color: white;
+}
+
+/* 弹窗样式（如果你之前没有） */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  width: 80%;
+  max-width: 600rpx;
+  max-height: 86vh;
+  overflow-y: auto;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.modal input, .modal .picker {
+  border: 1rpx solid #ddd;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 8rpx;
+  font-size: 30rpx;
+}
+
+.confirm-btn {
+  background: #07c160;
+  color: white;
+  margin-top: 20rpx;
+}
+
+.cancel-btn {
+  background: #f2f2f2;
+  color: #666;
+  margin-top: 16rpx;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16rpx;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.btn-edit {
+  margin: 0;
+  background: #07c160;
+  color: white;
+  font-size: 24rpx;
+}
+
+.btn-delete {
+  margin: 0;
+  font-size: 24rpx;
+}
+
+.openid-tip {
+  background: #fffbe6;
+  border: 1rpx solid #ffe58f;
+  padding: 16rpx 24rpx;
+  margin: 20rpx 30rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  color: #d48806;
+  display: flex;
+  flex-direction: column;
+}
+
+.openid-tip .tip-small {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.openid-tip {
+  background: #fffbe6;
+  border: 1rpx solid #ffe58f;
+  padding: 16rpx 24rpx;
+  margin: 20rpx 30rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  color: #d48806;
+}
+
+.openid-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-copy {
+  margin: 0;
+  padding: 4rpx 20rpx;
+  font-size: 22rpx;
+  line-height: 1.6;
+  background: #07c160;
+  color: white;
+  border-radius: 6rpx;
+}
+
+.openid-tip .tip-small {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 8rpx;
+  display: block;
+}
+
+.loading-tip, .no-more-tip {
+  text-align: center;
+  padding: 30rpx 0;
+  color: #999;
+  font-size: 26rpx;
+}
+
+.load-more-btn {
+  text-align: center;
+  padding: 24rpx 0;
+  margin: 20rpx 30rpx;
+  background: #f0f0f0;
+  border-radius: 8rpx;
+  color: #07c160;
+  font-size: 28rpx;
+}
+
+.load-more-btn:active {
+  background: #e0e0e0;
+}

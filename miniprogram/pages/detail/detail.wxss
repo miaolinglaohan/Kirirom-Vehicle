@@ -1,0 +1,82 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30rpx;
+  color: #333;
+}
+
+.detail-card {
+  background: white;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 和首页 info-row 对齐效果一致 */
+.row {
+  display: flex;
+  margin-bottom: 12rpx;
+  font-size: 30rpx;
+  line-height: 1.6;
+}
+
+.row .label {
+  color: #666;
+  width: 160rpx;
+  flex-shrink: 0;
+}
+
+.row .value {
+  color: #333;
+  flex: 1;
+}
+
+.status.pending { color: #ff976a; }
+.status.approved { color: #07c160; }
+.status.rejected { color: #f44336; }
+.status.returned { color: #2196f3; }
+
+.action-section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 24rpx;
+}
+
+.sub-header {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  color: #333;
+}
+
+.form-item {
+  margin-bottom: 20rpx;
+}
+
+.form-item .label {
+  display: block;
+  margin-bottom: 10rpx;
+  font-size: 28rpx;
+}
+
+.picker {
+  height: 70rpx;
+  line-height: 70rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  font-size: 30rpx;
+}
+
+.btn-primary {
+  background: #07c160;
+  color: white;
+  margin-top: 20rpx;
+}

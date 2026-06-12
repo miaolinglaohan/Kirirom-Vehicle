@@ -1,0 +1,106 @@
+.container {
+  padding: 20rpx 30rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;  /* 子元素拉伸填满宽度，实现左对齐 */
+}
+
+.header {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20rpx;
+  color: #333;
+}
+
+.form-item {
+  background: white;
+  padding: 14rpx 20rpx;
+  margin-bottom: 10rpx;
+  border-radius: 12rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 6rpx;
+  font-weight: 500;
+}
+
+.input {
+  height: 56rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 0 16rpx;
+  font-size: 28rpx;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.textarea {
+  height: 80rpx;        /* 从160rpx降到80rpx，一行半高度 */
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 10rpx;
+  font-size: 28rpx;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.picker {
+  height: 56rpx;
+  line-height: 56rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 0 16rpx;
+  font-size: 28rpx;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.placeholder {
+  color: #999;
+}
+
+.tip {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+  display: block;
+}
+
+/* 横向排列的三项 */
+.form-item-inline {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.form-item-inline .label {
+  width: 140rpx;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+.form-item-inline .picker {
+  flex: 1;
+}
+
+.submit-btn {
+  margin-top: 16rpx;
+  background: #07c160;
+  color: white;
+  font-size: 32rpx;
+  border-radius: 12rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  width: 100%;
+}

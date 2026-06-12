@@ -1,0 +1,10 @@
+{
+  "name": "adminUpdateVehicle",
+  "version": "1.0.0",
+  "description": "编辑车辆信息",
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "wx-server-sdk": "~3.0.4"
+  }
+}

@@ -1,0 +1,193 @@
+<view class="container">
+  <view class="header">后台管理</view>
+  
+  <!-- Tab 切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{currentTab === 0 ? 'active' : ''}}" bindtap="switchTab" data-index="0">记录管理</view>
+    <view class="tab-item {{currentTab === 1 ? 'active' : ''}}" bindtap="switchTab" data-index="1">车辆管理</view>
+    <view class="tab-item {{currentTab === 2 ? 'active' : ''}}" bindtap="switchTab" data-index="2">用户管理</view>
+    <view class="tab-item {{currentTab === 3 ? 'active' : ''}}" bindtap="switchTab" data-index="3">文件管理</view>
+  </view>
+
+  <!-- 用户管理 -->
+  <view class="tab-content" wx:if="{{currentTab === 2}}">
+    <view class="list-card" wx:for="{{userList}}" wx:key="_id">
+      <view class="info-row">
+        <text class="label">姓名：</text>
+        <text class="value">{{item.name}}</text>
+        <text class="role-tag {{item.role}}">{{roleText[item.role]}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">部门：</text>
+        <text class="value">{{item.department}}</text>
+      </view>
+      <view class="card-actions">
+        <button class="btn-edit" size="mini" bindtap="showEditUser" data-user="{{item}}">编辑</button>
+        <button class="btn-delete" size="mini" type="warn" bindtap="deleteUser" data-user="{{item}}">删除</button>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{userList.length === 0}}">暂无用户</view>
+    
+    <button class="btn-add" bindtap="showAddUser">+ 添加用户</button>
+  </view>
+
+  <!-- 车辆管理 -->
+  <view class="tab-content" wx:if="{{currentTab === 1}}">
+    <view class="list-card" wx:for="{{vehicleList}}" wx:key="_id">
+      <view class="info-row">
+        <text class="label">车牌：</text>
+        <text class="value">{{item.plateNumber}}</text>
+        <text class="status-tag {{item.status}}">{{item.status === 'available' ? '可用' : '使用中'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">类型：</text>
+        <text class="value">{{item.type}}</text>
+      </view>
+      <view class="card-actions">
+        <button class="btn-edit" size="mini" bindtap="showEditVehicle" data-vehicle="{{item}}">编辑</button>
+        <button class="btn-delete" size="mini" type="warn" bindtap="deleteVehicle" data-vehicle="{{item}}">删除</button>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{vehicleList.length === 0}}">暂无车辆</view>
+    
+    <button class="btn-add" bindtap="showAddVehicle">+ 添加车辆</button>
+  </view>
+
+  <!-- 记录管理 -->
+  <view class="tab-content" wx:if="{{currentTab === 0}}">
+    <!-- 关键修复：加 bindtap 和 data-id -->
+    <view class="list-card" wx:for="{{recordList}}" wx:key="_id" bindtap="goRecordDetail" data-id="{{item._id}}">
+      <view class="info-row">
+        <text class="label">编号：</text>
+        <text class="value">{{item.serialNo}}</text>
+        <text class="status-tag {{item.status}}">{{statusText[item.status]}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">申请人：</text>
+        <text class="value">{{item.applicantName}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">车辆：</text>
+        <text class="value">{{item.vehiclePlate}}</text>
+      </view>
+      <view class="info-row" wx:if="{{item.driverName}}">
+        <text class="label">驾驶员：</text>
+        <text class="value">{{item.driverName}}</text>
+      </view>
+      <view class="card-actions">
+        <button class="btn-edit" size="mini" catchtap="showEditRecord" data-record="{{item}}">编辑</button>
+        <!-- 关键修复：catchtap 阻止冒泡，点击删除不跳转详情 -->
+        <button class="btn-delete" size="mini" type="warn" catchtap="deleteRecord" data-record="{{item}}">删除</button>
+      </view>
+    </view>
+    
+    <!-- 分页加载提示 -->
+    <view class="load-more-btn" wx:if="{{recordHasMore && !recordIsLoading}}" bindtap="loadMoreRecords">
+      <text>点击加载更多</text>
+    </view>
+    <view class="loading-tip" wx:if="{{recordIsLoading}}">
+      <text>正在加载...</text>
+    </view>
+    <view class="no-more-tip" wx:if="{{!recordHasMore && recordList.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+    <view class="empty" wx:if="{{!recordIsLoading && recordList.length === 0}}">暂无记录</view>
+    
+    <button class="btn-export" bindtap="exportData">导出Excel</button>
+  </view>
+
+  <!-- 文件管理 -->
+  <view class="tab-content" wx:if="{{currentTab === 3}}">
+    <view class="list-card" wx:for="{{exportFileList}}" wx:key="_id">
+      <view class="info-row">
+        <text class="label">文件：</text>
+        <text class="value file-name">{{item.fileName}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">记录数：</text>
+        <text class="value">{{item.count}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">时间：</text>
+        <text class="value">{{item.createTimeText}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">类型：</text>
+        <text class="value">{{item.typeText}}</text>
+      </view>
+      <view class="card-actions">
+        <button class="btn-edit" size="mini" bindtap="copyExportFileUrl" data-file="{{item}}">复制链接</button>
+        <button class="btn-delete" size="mini" type="warn" bindtap="deleteExportFile" data-file="{{item}}">删除</button>
+      </view>
+    </view>
+    <view class="loading-tip" wx:if="{{exportFileIsLoading}}">
+      <text>正在加载...</text>
+    </view>
+    <view class="empty" wx:if="{{!exportFileIsLoading && exportFileList.length === 0}}">暂无导出文件</view>
+    <button class="btn-export" bindtap="loadExportFiles">刷新文件列表</button>
+  </view>
+
+  <!-- 用户弹窗 -->
+  <view class="modal" wx:if="{{showUserModal}}">
+    <view class="modal-mask" bindtap="hideModal"></view>
+    <view class="modal-content">
+      <view class="modal-title">{{isEditMode ? '编辑用户' : '添加用户'}}</view>
+      <input class="modal-input" placeholder="姓名" bindinput="onUserInput" data-field="newUserName" value="{{newUser.name}}"/>
+      <picker mode="selector" range="{{departmentList}}" bindchange="onUserDeptChange" value="{{newUserDeptIndex}}">
+        <view class="modal-picker">{{newUser.department || '请选择部门'}}</view>
+      </picker>
+      <picker mode="selector" range="{{roleList}}" range-key="name" bindchange="onUserRoleChange" value="{{newUserRoleIndex}}">
+        <view class="modal-picker">{{newUser.roleName || '请选择角色'}}</view>
+      </picker>
+      <input class="modal-input" placeholder="openid（可选，绑定微信用）" bindinput="onUserOpenidInput" value="{{newUser.openid}}"/>
+      <view class="modal-btns">
+        <button class="btn-cancel" bindtap="hideModal">取消</button>
+        <button class="btn-confirm" bindtap="confirmAddUser">{{isEditMode ? '保存修改' : '确定'}}</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 车辆弹窗 -->
+  <view class="modal" wx:if="{{showVehicleModal}}">
+    <view class="modal-mask" bindtap="hideModal"></view>
+    <view class="modal-content">
+      <view class="modal-title">{{isEditMode ? '编辑车辆' : '添加车辆'}}</view>
+      <input class="modal-input" placeholder="车牌号" bindinput="onVehicleInput" data-field="newVehiclePlate" value="{{newVehicle.plateNumber}}"/>
+      <picker mode="selector" range="{{vehicleTypeList}}" bindchange="onVehicleTypeChange" value="{{newVehicleTypeIndex}}">
+        <view class="modal-picker">{{newVehicle.type || '请选择类型'}}</view>
+      </picker>
+      <view class="modal-btns">
+        <button class="btn-cancel" bindtap="hideModal">取消</button>
+        <button class="btn-confirm" bindtap="confirmAddVehicle">{{isEditMode ? '保存修改' : '确定'}}</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 记录弹窗 -->
+  <view class="modal" wx:if="{{showRecordModal}}">
+    <view class="modal-mask" bindtap="hideModal"></view>
+    <view class="modal-content">
+      <view class="modal-title">编辑记录</view>
+      <picker mode="selector" range="{{vehicleList}}" range-key="plateNumber" bindchange="onEditRecordVehicleChange" value="{{editRecordVehicleIndex}}">
+        <view class="modal-picker">{{editRecord.vehiclePlate || '请选择车辆'}}</view>
+      </picker>
+      <picker mode="date" bindchange="onEditRecordStartDateChange" value="{{editRecord.startDate}}">
+        <view class="modal-picker">申请日期：{{editRecord.startDate || '请选择'}}</view>
+      </picker>
+      <picker mode="time" bindchange="onEditRecordStartTimeChange" value="{{editRecord.startTime}}">
+        <view class="modal-picker">申请时间：{{editRecord.startTime || '请选择'}}</view>
+      </picker>
+      <picker mode="date" bindchange="onEditRecordEndDateChange" value="{{editRecord.endDate}}">
+        <view class="modal-picker">归还日期：{{editRecord.endDate || '未填写'}}</view>
+      </picker>
+      <picker mode="time" bindchange="onEditRecordEndTimeChange" value="{{editRecord.endTime}}">
+        <view class="modal-picker">归还时间：{{editRecord.endTime || '未填写'}}</view>
+      </picker>
+      <textarea class="modal-textarea" placeholder="用车事由" bindinput="onEditRecordPurposeInput" value="{{editRecord.purpose}}"/>
+      <view class="modal-btns">
+        <button class="btn-cancel" bindtap="hideModal">取消</button>
+        <button class="btn-confirm" bindtap="confirmEditRecord">保存修改</button>
+      </view>
+    </view>
+  </view>
+</view>

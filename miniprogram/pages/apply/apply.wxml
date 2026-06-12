@@ -1,0 +1,59 @@
+<view class="container">
+  <view class="header">用车申请</view>
+
+  <view class="form-item">
+    <text class="label">申请人 *</text>
+    <picker mode="selector" range="{{userList}}" range-key="name" bindchange="onApplicantChange" value="{{applicantIndex}}">
+      <view class="picker">{{form.applicantName || '请选择'}}</view>
+    </picker>
+    <text class="tip" wx:if="{{canApplyForOthers}}">默认本人，可点击选择帮他人申请</text>
+    <text class="tip" wx:else>仅限本人申请</text>
+  </view>
+
+  <view class="form-item">
+    <text class="label">使用部门 *</text>
+    <picker mode="selector" range="{{departmentList}}" bindchange="onDepartmentChange" value="{{departmentIndex}}">
+      <view class="picker {{form.department ? '' : 'placeholder'}}">{{form.department || '请选择部门'}}</view>
+    </picker>
+  </view>
+
+  <view class="form-item">
+    <text class="label">用途 *</text>
+    <textarea class="textarea" placeholder="请输入用车用途" bindinput="onInput" data-field="purpose" value="{{form.purpose}}"/>
+  </view>
+
+  <view class="form-item form-item-inline">
+    <text class="label">用车日期 *</text>
+    <picker mode="date" bindchange="onDateChange" value="{{form.startDate}}">
+      <view class="picker">{{form.startDate}}</view>
+    </picker>
+  </view>
+
+  <view class="form-item form-item-inline">
+    <text class="label">用车时间 *</text>
+    <picker mode="time" bindchange="onTimeChange" value="{{form.startTime}}">
+      <view class="picker">{{form.startTime}}</view>
+    </picker>
+  </view>
+
+  <view class="form-item form-item-inline">
+    <text class="label">使用车辆 *</text>
+    <picker mode="selector" range="{{vehicleList}}" range-key="plateNumber" bindchange="onVehicleChange" value="{{vehicleIndex}}">
+      <view class="picker">{{form.vehiclePlate || '请选择车辆'}}</view>
+    </picker>
+  </view>
+
+  <view class="form-item form-item-inline">
+    <text class="label">驾驶员 *</text>
+    <picker mode="selector" range="{{driverList}}" range-key="name" bindchange="onDriverChange" value="{{driverIndex}}">
+      <view class="picker">{{form.driverName || '请选择驾驶员'}}</view>
+    </picker>
+  </view>
+
+  <view class="form-item">
+    <text class="label">备注</text>
+    <input class="input" placeholder="选填" bindinput="onInput" data-field="remark" value="{{form.remark}}"/>
+  </view>
+
+  <button class="submit-btn" bindtap="submitForm" loading="{{submitting}}">提交申请</button>
+</view>

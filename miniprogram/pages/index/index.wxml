@@ -1,0 +1,100 @@
+<view class="container">
+
+<!-- 用户信息 -->
+<view class="user-bar" wx:if="{{isLogin}}">
+  <text class="user-name">您好，{{userName}}</text>
+  <text class="user-role" wx:if="{{userRole === 'admin'}}">[管理员]</text>
+  <text class="user-role" wx:if="{{userRole === 'approver'}}">[审批人]</text>
+  <text class="user-role" wx:if="{{userRole === 'driver'}}">[驾驶员]</text>
+</view>
+
+<view class="user-card unregistered" wx:else>
+  <text>您好，未登记</text>
+  <view class="openid-show" wx:if="{{openid}}">
+    <text>识别码：{{openid}}</text>
+    <button class="btn-copy-small" size="mini" bindtap="copyOpenid">复制</button>
+  </view>
+  <text class="hint-text">请复制识别码联系管理员添加</text>
+</view>
+
+<!-- 功能按钮 -->
+<view class="action-bar">
+  <view class="btn-item btn-primary" bindtap="goApply">
+    <view class="btn-icon">🚗</view>
+    <view class="btn-text">用车申请</view>
+  </view>
+  <view class="btn-item btn-warning" bindtap="goApprove">
+    <view class="btn-icon">📋</view>
+    <view class="btn-text">待审批</view>
+  </view>
+  <view class="btn-item btn-admin" bindtap="goAdmin">
+    <view class="btn-icon">⚙️</view>
+    <view class="btn-text">后台管理</view>
+  </view>
+</view>
+
+<!-- 筛选标签 -->
+<view class="filter-bar">
+  <view class="filter-item {{currentFilter === 'all' ? 'active' : ''}}" bindtap="switchFilter" data-type="all">全部</view>
+  <view class="filter-item {{currentFilter === 'pending' ? 'active' : ''}}" bindtap="switchFilter" data-type="pending">待审批</view>
+  <view class="filter-item {{currentFilter === 'approved' ? 'active' : ''}}" bindtap="switchFilter" data-type="approved">已通过</view>
+  <view class="filter-item {{currentFilter === 'my' ? 'active' : ''}}" bindtap="switchFilter" data-type="my">我的申请</view>
+</view>
+
+<!-- 记录列表 -->
+<view class="list-container">
+  <view class="record-card" wx:for="{{records}}" wx:key="_id" bindtap="goDetail" data-id="{{item._id}}">
+    <view class="card-header">
+      <text class="serial-no">No.{{item.serialNo}}</text>
+      <text class="status {{item.status}}">{{statusText[item.status]}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">申请人：</text>
+      <text class="value">{{item.applicantName}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">部门：</text>
+      <text class="value">{{item.department}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">用途：</text>
+      <text class="value">{{item.purpose}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">车辆：</text>
+      <text class="value">{{item.vehiclePlate}}</text>
+    </view>
+    <view class="info-row" wx:if="{{item.driverName}}">
+      <text class="label">驾驶员：</text>
+      <text class="value">{{item.driverName}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">用车时间：</text>
+      <text class="value">{{item.startTime}}</text>
+    </view>
+    <view class="info-row" wx:if="{{item.endTime || item.actualEndTime}}">
+      <text class="label">归还时间：</text>
+      <text class="value">{{item.endTime || item.actualEndTime}}</text>
+    </view>
+    <view class="info-row" wx:if="{{item.status !== 'pending'}}">
+        <text class="label">审批人：</text>
+        <text class="value">{{item.approverName}}</text>
+      </view>
+  </view>
+</view>
+
+<!-- 分页加载提示 -->
+<view class="load-more-btn" wx:if="{{hasMore && !isLoading}}" bindtap="loadMore">
+  <text>点击加载更多</text>
+</view>
+<view class="loading-tip" wx:if="{{isLoading}}">
+  <text>正在加载...</text>
+</view>
+<view class="no-more-tip" wx:if="{{!hasMore && records.length > 0}}">
+  <text>没有更多了</text>
+</view>
+<view class="empty" wx:if="{{!isLoading && records.length === 0}}">
+  <text>暂无记录</text>
+</view>
+
+</view>

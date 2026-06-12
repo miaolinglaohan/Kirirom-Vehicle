@@ -1,0 +1,10 @@
+{
+  "name": "deleteApplication",
+  "version": "1.0.0",
+  "description": "删除用车申请记录",
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "wx-server-sdk": "~3.0.4"
+  }
+}

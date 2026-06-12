@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="header">待审批列表</view>
+
+  <view class="record-card" wx:for="{{pendingList}}" wx:key="_id">
+    <view class="card-header">
+      <text class="serial-no">No.{{item.serialNo}}</text>
+      <text class="status pending">待审批</text>
+    </view>
+    <view class="card-body">
+      <view class="info-row"><text class="label">申请人：</text><text class="value">{{item.applicantName}}</text></view>
+      <view class="info-row"><text class="label">部门：</text><text class="value">{{item.department}}</text></view>
+      <view class="info-row"><text class="label">用途：</text><text class="value">{{item.purpose}}</text></view>
+      <view class="info-row" wx:if="{{item.driverName}}"><text class="label">驾驶员：</text><text class="value">{{item.driverName}}</text></view>
+
+      <view class="info-row">
+        <text class="label">车辆：</text>
+        <picker
+          class="vehicle-picker"
+          mode="selector"
+          range="{{vehicleList}}"
+          range-key="plateNumber"
+          value="{{item.selectedVehicleIndex}}"
+          bindchange="onVehicleChange"
+          data-record-index="{{index}}"
+        >
+          <view class="picker-text">{{item.selectedVehiclePlate || "请选择车辆"}}</view>
+        </picker>
+      </view>
+
+      <view class="info-row"><text class="label">用车时间：</text><text class="value">{{item.startTime}}</text></view>
+      <view class="info-row" wx:if="{{item.remark}}"><text class="label">备注：</text><text class="value">{{item.remark}}</text></view>
+    </view>
+    <view class="card-footer">
+      <button class="btn-reject" bindtap="handleApprove" data-id="{{item._id}}" data-index="{{index}}" data-action="reject">不同意</button>
+      <button class="btn-approve" bindtap="handleApprove" data-id="{{item._id}}" data-index="{{index}}" data-action="approve">同意</button>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{pendingList.length === 0}}">
+    <text>暂无待审批申请</text>
+  </view>
+</view>
